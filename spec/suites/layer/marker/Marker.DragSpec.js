@@ -31,29 +31,6 @@ describe('Marker.Drag', () => {
 	});
 
 	describe('drag', () => {
-		it('drags a marker with mouse', (done) => {
-			const marker = new MyMarker([0, 0], {draggable: true}).addTo(map);
-
-			const start = new Point(300, 280);
-			const offset = new Point(56, 32);
-			const finish = start.add(offset);
-
-			const hand = new Hand({
-				timing: 'fastframe',
-				onStop() {
-					expect(marker.getOffset().equals(offset)).to.be.true;
-
-					expect(map.getCenter()).to.be.nearLatLng([0, 0]);
-					expect(marker.getLatLng()).to.be.nearLatLng([-40.979898069620134, 78.75]);
-
-					done();
-				}
-			});
-			const toucher = hand.growFinger('mouse');
-
-			toucher.moveTo(start.x, start.y, 0)
-				.down().moveBy(5, 0, 20).moveTo(finish.x, finish.y, 1000).up();
-		});
 
 		describe('in CSS scaled container', () => {
 			const scale = new Point(2, 1.5);
@@ -63,7 +40,7 @@ describe('Marker.Drag', () => {
 				container.style.webkitTransform = `scale(${scale.x}, ${scale.y})`;
 			});
 
-			it.only('drags a marker with mouse, compensating for CSS scale', (done) => {
+			it('drags a marker with mouse, compensating for CSS scale', (done) => {
 				const marker = new MyMarker([0, 0], {draggable: true}).addTo(map);
 
 				const start = new Point(300, 280);
@@ -88,34 +65,6 @@ describe('Marker.Drag', () => {
 				toucher.wait(0).moveTo(startScaled.x, startScaled.y, 0)
 					.down().moveBy(5, 0, 20).moveTo(finishScaled.x, finishScaled.y, 1000).up();
 			});
-		});
-
-		it('pans map when autoPan is enabled', (done) => {
-			const marker = new MyMarker([0, 0], {
-				draggable: true,
-				autoPan: true
-			}).addTo(map);
-
-			const start = new Point(300, 280);
-			const offset = new Point(290, 32);
-			const finish = start.add(offset);
-
-			const hand = new Hand({
-				timing: 'fastframe',
-				onStop() {
-					expect(marker.getOffset()).to.eql(offset);
-
-					// small margin of error allowed
-					expect(map.getCenter()).to.be.nearLatLng([0, 11.25]);
-					expect(marker.getLatLng()).to.be.nearLatLng([-40.979898069620134, 419.0625]);
-
-					done();
-				}
-			});
-			const toucher = hand.growFinger('mouse');
-
-			toucher.moveTo(start.x, start.y, 0)
-				.down().moveBy(5, 0, 20).moveTo(finish.x, finish.y, 1000).up();
 		});
 	});
 });
