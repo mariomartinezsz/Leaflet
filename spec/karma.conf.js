@@ -24,6 +24,7 @@ module.exports = function (/** @type {import('karma').Config} */ config) {
 			{pattern: 'dist/**/*.png', included: false, served: true},
 			{pattern: 'spec/setup.js', type: 'module'},
 			{pattern: 'spec/suites/**/Marker.DragSpec.js', type: 'module'},
+			{pattern: 'spec/suites/**/SpecHelper.js', type: 'module'},
 			{pattern: 'dist/*.css', type: 'css'},
 		],
 		reporters: ['progress', 'time-stats'],
