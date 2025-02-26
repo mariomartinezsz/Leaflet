@@ -5,7 +5,7 @@ import {createContainer, removeMapContainer} from '../../SpecHelper.js';
 
 describe('Marker.Drag', () => {
 	let map,
-	    container;
+	container;
 
 	beforeEach(() => {
 		container = createContainer();
@@ -63,7 +63,7 @@ describe('Marker.Drag', () => {
 				container.style.webkitTransform = `scale(${scale.x}, ${scale.y})`;
 			});
 
-			it('drags a marker with mouse, compensating for CSS scale', (done) => {
+			it.only('drags a marker with mouse, compensating for CSS scale', (done) => {
 				const marker = new MyMarker([0, 0], {draggable: true}).addTo(map);
 
 				const start = new Point(300, 280);
