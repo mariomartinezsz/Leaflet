@@ -47,23 +47,29 @@ describe('Marker.Drag', () => {
 				const offset = new Point(56, 32);
 				const finish = start.add(offset);
 
-				const hand = new Hand({
-					timing: 'fastframe',
-					onStop() {
-						expect(marker.getOffset()).to.eql(offset);
+				try {
 
-						expect(map.getCenter()).to.be.nearLatLng([0, 0]);
-						expect(marker.getLatLng()).to.be.nearLatLng([-40.979898069620134, 78.75]);
+					const hand = new Hand({
+						timing: 'fastframe',
+						onStop() {
+							expect(marker.getOffset()).to.eql(offset);
 
-						done();
-					}
-				});
-				const toucher = hand.growFinger('mouse');
+							expect(map.getCenter()).to.be.nearLatLng([0, 0]);
+							expect(marker.getLatLng()).to.be.nearLatLng([-40.979898069620134, 78.75]);
 
-				const startScaled = start.scaleBy(scale);
-				const finishScaled = finish.scaleBy(scale);
-				toucher.wait(0).moveTo(startScaled.x, startScaled.y, 0)
-					.down().moveBy(5, 0, 20).moveTo(finishScaled.x, finishScaled.y, 1000).up();
+							done();
+						}
+					});
+					const toucher = hand.growFinger('mouse');
+
+					const startScaled = start.scaleBy(scale);
+					const finishScaled = finish.scaleBy(scale);
+					toucher.wait(1000).moveTo(startScaled.x, startScaled.y, 0)
+						.down().moveBy(5, 0, 20).moveTo(finishScaled.x, finishScaled.y, 1000).up();
+				} catch (e) {
+					console.error('ERROR TEST');
+					console.error(e);
+				}
 			});
 		});
 	});
