@@ -33,7 +33,7 @@ describe('Marker.Drag', () => {
 	describe('drag', () => {
 
 		describe('in CSS scaled container', () => {
-			const scale = new Point(1, 1);
+			const scale = new Point(2, 1.5);
 
 			beforeEach(() => {
 				container.style.webkitTransformOrigin = 'top left';
